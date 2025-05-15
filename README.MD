@@ -21,37 +21,42 @@ A high-performance URL shortening service built with FastAPI, Docker, and GitHub
 - Python 3.9+
 - Docker & Docker Compose
 
-### Local Development
-```bash
-# 1. Clone the repo
-git clone https://github.com/your-username/Url_shortener.git
-cd Url_shortener
+## Prerequisites
 
-# 2. Set up environment
-cp .env.example .env  # Update with your credentials
+- Python 3.9+
+- Docker Desktop
+- Git
 
-# 3. Start services
-docker-compose up -d
+## Local Development
 
-# 4. Access API at http://localhost:8000
-📚 API Documentation
-Endpoints
-Method	Endpoint	Description
-POST	/links	Create short URL
-GET	/{code}	Redirect to original URL
-Example Request:
+### Without Docker
+
+1. **Set up virtual environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   .\venv\Scripts\Activate  # Windows
+Install dependencies:
+pip install -r requirements.txt
+Configure environment:
+Create .env file:
+
+Run the application:
 
 bash
-curl -X POST "http://localhost:8000/links" \
-  -H "Content-Type: application/json" \
-  -d '{"original_url": "https://example.com/very-long-url"}'
-🛠️ Tech Stack
-Backend: FastAPI
+uvicorn app.main:app --reload
 
-Database: SQLite (SQLAlchemy ORM)
+With Docker
+Build and run:
 
-Auth: Admin credentials via environment variables
+bash
+docker-compose up --build
+Access services:
+API: http://localhost:8000
+Docs: http://localhost:8000/docs
 
-Infra: Dockerized deployment
-
-CI/CD: GitHub Actions with pytest
+Testing
+Run tests with:
+bash
+docker-compose exec web pytest -v
+Test coverage:
