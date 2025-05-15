@@ -58,4 +58,3 @@ Testing
 Run tests with:
 bash
 docker-compose exec web pytest -v
-Test coverage:
