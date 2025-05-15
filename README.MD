@@ -52,7 +52,6 @@ Build and run:
 bash
 docker-compose up --build
 Access services:
-API: http://localhost:8000
 Docs: http://localhost:8000/docs
 
 Testing
