@@ -1,9 +1,6 @@
 name: CI
 on: [push]
 
-env:
-  DATABASE_URL: "sqlite:////app/db/test.db"
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -20,14 +17,15 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
-      - name: Start containers with admin credentials
+      - name: Start containers
         run: docker-compose up -d
         env:
           ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+          DATABASE_URL: sqlite:////app/db/test.db
 
-      - name: Run pytest with admin credentials
-        run: docker-compose exec web pytest
+      - name: Run tests
+        run: docker-compose exec -e ADMIN_USERNAME=$ADMIN_USERNAME -e ADMIN_PASSWORD=$ADMIN_PASSWORD web pytest
         env:
           ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
           ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
