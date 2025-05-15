@@ -1,56 +1,57 @@
-# URL Shortener Service
+# 🔗 URL Shortener - FastAPI Microservice
 
-A FastAPI-based URL shortening service with Docker support, automated testing, and CI/CD.
+A high-performance URL shortening service built with FastAPI, Docker, and GitHub Actions CI/CD.
 
-## Features
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
 
-- Shorten long URLs to compact codes
-- Redirect short codes to original URLs
-- REST API documentation (Swagger)
+## ✨ Features
+
+- Convert long URLs to short, memorable codes
+- Redirect visitors to original URLs
+- Admin-protected API endpoints
+- SQLite database persistence
 - Docker containerization
-- Automated testing with pytest
-- GitHub Actions CI/CD pipeline
+- Automated testing with GitHub Actions
 
-## Prerequisites
+## 🚀 Quick Start
 
+### Prerequisites
 - Python 3.9+
-- Docker Desktop
-- Git
+- Docker & Docker Compose
 
-## Local Development
+### Local Development
+```bash
+# 1. Clone the repo
+git clone https://github.com/your-username/Url_shortener.git
+cd Url_shortener
 
-### Without Docker
+# 2. Set up environment
+cp .env.example .env  # Update with your credentials
 
-1. **Set up virtual environment**:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   .\venv\Scripts\Activate  # Windows
+# 3. Start services
+docker-compose up -d
 
-Install dependencies:
-pip install -r requirements.txt
-Configure environment:
-Create .env file:
-
-Run the application:
-
-bash
-uvicorn app.main:app --reload
-
-With Docker
-Build and run:
+# 4. Access API at http://localhost:8000
+📚 API Documentation
+Endpoints
+Method	Endpoint	Description
+POST	/links	Create short URL
+GET	/{code}	Redirect to original URL
+Example Request:
 
 bash
-docker-compose up --build
-Access services:
-API: http://localhost:8000
-Docs: http://localhost:8000/docs
+curl -X POST "http://localhost:8000/links" \
+  -H "Content-Type: application/json" \
+  -d '{"original_url": "https://example.com/very-long-url"}'
+🛠️ Tech Stack
+Backend: FastAPI
 
-Testing
-Run tests with:
-bash
-docker-compose exec web pytest -v
-Test coverage:
+Database: SQLite (SQLAlchemy ORM)
 
-bash
-docker-compose exec web pytest --cov=app --cov-report=term-missing
+Auth: Admin credentials via environment variables
+
+Infra: Dockerized deployment
+
+CI/CD: GitHub Actions with pytest
